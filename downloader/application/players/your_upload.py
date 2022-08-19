@@ -21,6 +21,7 @@ class YourUpload(player.Player):
         html = res.text
 
         soup = BeautifulSoup(html, "lxml")
+        print(soup.prettify())
         dw_url = soup.find("a", {
             "class": "btn btn-success"
         })["href"]

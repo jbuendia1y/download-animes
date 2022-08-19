@@ -2,9 +2,13 @@ from argparse import ArgumentParser
 import argparse
 from pathlib import Path
 
+from downloader.domain.player import Player
+import downloader.application.players.fireload as fireload
 import downloader.application.players.your_upload as your_upload
 import downloader.application.sites.anime_fenix as anime_fenix
 from downloader.application.loading.tqdm_loading import TqdmLoading
+
+players = ("your_upload", "fireload")
 
 
 def main():
@@ -16,16 +20,27 @@ def main():
                         type=int, help="Chapter number", required=True)
     parser.add_argument("-d", "--directory",
                         dest="directory", default="static/animes", help="Folder to save animes")
+    parser.add_argument("-p", "--player", dest="player",
+                        default="your_upload", help="Player to download video")
 
     args = parser.parse_args()
 
     anime_slug = args.name
     chapter = args.chapter
     path = Path(args.directory).joinpath(anime_slug)
+    player = args.player
+    d = path.resolve()
+
+    if not player in players:
+        raise KeyError(player)
 
     ld = TqdmLoading()
-    p = your_upload.YourUpload(
-        path.resolve(), loading=ld)
+    p: Player
+    if player == "fireload":
+        p = fireload.Fireload(d, loading=ld)
+    else:
+        p = your_upload.YourUpload(d, loading=ld)
+
     s = anime_fenix.AnimeFenix(p)
     s.download_multimedia(anime_slug, chapter)
 
