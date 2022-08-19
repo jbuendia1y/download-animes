@@ -11,7 +11,8 @@ class AnimeFenix(site.Site):
 
     dictionary = {
         "yourupload": "YourUpload",
-        "fireload": "Fireload"
+        "fireload": "Fireload",
+        "fembed": "Fembed"
     }
 
     def get_tab_id(self, html: str, player_name: str) -> int:
@@ -62,7 +63,6 @@ class AnimeFenix(site.Site):
         ----------
         anime_slug  (int)   example: overlord
         chapter     (int)   example: 1
-        player_name (str)   default: YourUpload
         """
 
         url = self.base_url + f"/ver/{anime_slug}-{chapter}"

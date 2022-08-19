@@ -11,8 +11,8 @@ class Fireload(Player):
         return f"https://{url}"
 
     def download(self, video_id: str, filename: str):
-        video_dir = self.compose_video_dir(filename)
         """ video_id -> video_url with dw_token """
+        video_dir = self.compose_video_dir(filename)
         url = self.process_url(video_id)
 
         res = requests.get(url, stream=True)

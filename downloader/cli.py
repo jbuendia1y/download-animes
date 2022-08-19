@@ -2,13 +2,15 @@ from argparse import ArgumentParser
 import argparse
 from pathlib import Path
 
+from downloader.application.players.fembed import Fembed
+
 from downloader.domain.player import Player
 import downloader.application.players.fireload as fireload
 import downloader.application.players.your_upload as your_upload
 import downloader.application.sites.anime_fenix as anime_fenix
 from downloader.application.loading.tqdm_loading import TqdmLoading
 
-players = ("your_upload", "fireload")
+players = ("your_upload", "fireload", "fembed")
 
 
 def main():
@@ -38,6 +40,8 @@ def main():
     p: Player
     if player == "fireload":
         p = fireload.Fireload(d, loading=ld)
+    elif player == "fembed":
+        p = Fembed(d, loading=ld)
     else:
         p = your_upload.YourUpload(d, loading=ld)
 
