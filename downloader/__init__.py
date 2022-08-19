@@ -1,1 +1,1 @@
-from downloader.application import players, sites
+from downloader.application import players, sites, loading

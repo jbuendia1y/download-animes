@@ -6,9 +6,11 @@ with open("README.md") as f:
 setup(
     name="dwanimes",
     version="0.0.1",
-    scripts=[
-        "dw-animes=downloader/main.py"
-    ],
+    entry_points={
+        'console_scripts': [
+            "dw-animes=downloader.cli:main"
+        ]
+    },
     packages=find_packages(),
     author="Joaquín Buendía",
     description="Download your anime",

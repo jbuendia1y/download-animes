@@ -1,10 +1,10 @@
 import requests
 from http.client import HTTPException
-from domain.player import Player
+import downloader.domain.player as player
 from bs4 import BeautifulSoup
 
 
-class YourUpload(Player):
+class YourUpload(player.Player):
     base_url = "https://www.yourupload.com"
 
     @property

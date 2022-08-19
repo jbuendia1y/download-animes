@@ -1,6 +1,6 @@
 import requests
 from http.client import HTTPException
-from domain.player import Player
+from downloader.domain.player import Player
 
 
 class Fireload(Player):
