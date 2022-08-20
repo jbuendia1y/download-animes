@@ -10,7 +10,7 @@ Execute command:
 pip install dwanimes
 ```
 
-## CLI
+## To use CLI
 ```bash
 dw-animes --help
 ```
@@ -19,10 +19,16 @@ dw-animes --help
 ```py
 import pydwanimes
 
+# Directory to save animes
+directory = "/home/my-user/Videos"
+
+# Compose optional loading class
+loading = pydwanimes.loading.tqdm_loading.TqdmLoading()
+
 # Compose site class
-player = pydwanimes.players.your_upload("/home/my-user/Videos")
-site = pydwanimes.sites.AnimeFenix(player)
+player = pydwanimes.players.your_upload.YourUpload(directory,loading=loading)
+site = pydwanimes.sites.anime_fenix.AnimeFenix(player)
 
 # Download anime chapter
-site.download_multimedia("spy-x-family",1)
+site.download_multimedia("spy-x-family", 1)
 ```
