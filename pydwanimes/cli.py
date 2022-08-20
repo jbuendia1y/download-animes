@@ -2,13 +2,13 @@ from argparse import ArgumentParser
 import argparse
 from pathlib import Path
 
-from downloader.application.players.fembed import Fembed
+from pydwanimes.application.players.fembed import Fembed
 
-from downloader.domain.player import Player
-import downloader.application.players.fireload as fireload
-import downloader.application.players.your_upload as your_upload
-import downloader.application.sites.anime_fenix as anime_fenix
-from downloader.application.loading.tqdm_loading import TqdmLoading
+from pydwanimes.domain.player import Player
+import pydwanimes.application.players.fireload as fireload
+import pydwanimes.application.players.your_upload as your_upload
+import pydwanimes.application.sites.anime_fenix as anime_fenix
+from pydwanimes.application.loading.tqdm_loading import TqdmLoading
 
 players = ("your_upload", "fireload", "fembed")
 

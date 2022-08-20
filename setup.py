@@ -8,7 +8,7 @@ setup(
     version="0.0.1",
     entry_points={
         'console_scripts': [
-            "dw-animes=downloader.cli:main"
+            "dw-animes=pydwanimes.cli:main"
         ]
     },
     packages=find_packages(),

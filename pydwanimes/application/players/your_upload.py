@@ -1,6 +1,6 @@
 import requests
 from http.client import HTTPException
-import downloader.domain.player as player
+import pydwanimes.domain.player as player
 from bs4 import BeautifulSoup
 
 

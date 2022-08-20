@@ -1,4 +1,4 @@
-import downloader.domain.site as site
+import pydwanimes.domain.site as site
 from urllib import parse
 import requests
 

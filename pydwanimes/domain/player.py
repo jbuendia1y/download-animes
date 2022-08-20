@@ -3,7 +3,7 @@ import os
 from requests import Response
 from pathlib import Path
 
-import downloader.domain.loading as loading
+import pydwanimes.domain.loading as loading
 
 
 class Player(ABC):

@@ -1,9 +1,9 @@
 from argparse import ArgumentParser
 import argparse
 
-import downloader.application.players.your_upload as your_upload
-import downloader.application.sites.anime_fenix as anime_fenix
-from downloader.application.loading.tqdm_loading import TqdmLoading
+import pydwanimes.application.players.your_upload as your_upload
+import pydwanimes.application.sites.anime_fenix as anime_fenix
+from pydwanimes.application.loading.tqdm_loading import TqdmLoading
 
 
 def main():

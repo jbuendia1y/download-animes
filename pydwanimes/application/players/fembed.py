@@ -1,6 +1,6 @@
 import requests
 from http.client import HTTPException
-from downloader.domain.player import Player
+from pydwanimes.domain.player import Player
 
 
 class Fembed(Player):
