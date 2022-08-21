@@ -1,10 +1,10 @@
 import requests
 from http.client import HTTPException
-import pydwanimes.domain.player as player
+from pydwanimes.domain import Player
 from bs4 import BeautifulSoup
 
 
-class YourUpload(player.Player):
+class YourUpload(Player):
     base_url = "https://www.yourupload.com"
 
     @property

@@ -1,11 +1,11 @@
-import pydwanimes.domain.site as site
+from pydwanimes.domain import Site
 from urllib import parse
 import requests
 
 from bs4 import BeautifulSoup
 
 
-class AnimeFenix(site.Site):
+class AnimeFenix(Site):
 
     base_url = "https://www.animefenix.com"
 

@@ -4,7 +4,7 @@ from pathlib import Path
 
 from pydwanimes.application.players.fembed import Fembed
 
-from pydwanimes.domain.player import Player
+from pydwanimes.domain import Player
 import pydwanimes.application.players.fireload as fireload
 import pydwanimes.application.players.your_upload as your_upload
 import pydwanimes.application.sites.anime_fenix as anime_fenix

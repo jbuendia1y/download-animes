@@ -1,4 +1,4 @@
 DEFAULT = {
-    "site":"animefenix",
+    "site": "animefenix",
     "player": "your_upload"
 }

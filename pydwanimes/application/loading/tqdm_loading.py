@@ -1,4 +1,4 @@
-from pydwanimes.domain.loading import Loading
+from pydwanimes.domain import Loading
 from tqdm import tqdm
 
 

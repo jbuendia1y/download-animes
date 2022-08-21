@@ -1,6 +1,6 @@
 import requests
 from http.client import HTTPException
-from pydwanimes.domain.player import Player
+from pydwanimes.domain import Player
 
 
 class Fireload(Player):
