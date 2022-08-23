@@ -12,9 +12,10 @@ setup(
         ]
     },
     packages=find_packages(),
-    author="Joaquín Buendía",
+    author="jbuendia1y (Joaquín Buendía)",
     description="Download your anime",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    url="https://github.com/jbuendia1y/download-animes",
     keywords=["download", "anime"]
 )
