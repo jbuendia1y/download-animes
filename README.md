@@ -11,11 +11,13 @@ pip install dwanimes
 ```
 
 ## To use CLI
+
 ```bash
 dw-animes --help
 ```
 
 ## To use library
+
 ```py
 import pydwanimes
 
@@ -26,8 +28,11 @@ directory = "/home/my-user/Videos"
 loading = pydwanimes.loading.tqdm_loading.TqdmLoading()
 
 # Compose site class
-player = pydwanimes.players.your_upload.YourUpload(directory,loading=loading)
-site = pydwanimes.sites.anime_fenix.AnimeFenix(player)
+config = {
+    "directory": directory,
+    "loading": loading,
+}
+site = pydwanimes.sites.anime_fenix.AnimeFenix(config)
 
 # Download anime chapter
 site.download_multimedia("spy-x-family", 1)

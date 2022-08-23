@@ -1,5 +1,5 @@
-from ..domain.site import Site
-from ..domain.player import Player
+import pydwanimes.domain.player as player
+import pydwanimes.domain.site as site
 
 from importlib import import_module
 
@@ -13,16 +13,17 @@ PLAYERS = {
 }
 
 
-def get_player_class(name:str)->Player:
+def get_player_class(name: str, **config) -> player.Player:
     try:
-        m = import_module(f"application.players.{name}")
+        m = import_module(f"pydwanimes.application.players.{name}")
     except ImportError as e:
         raise e
-    return getattr(m,PLAYERS[name])
+    return getattr(m, PLAYERS[name])(**config)
 
-def get_site_class(name:str)->Site:
+
+def get_site_class(name: str) -> site:
     try:
         m = import_module(f"application.sites.{name}")
     except ImportError as e:
         raise e
-    return getattr(m,SITES[name])
+    return getattr(m, SITES[name])

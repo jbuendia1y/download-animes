@@ -1,3 +1,5 @@
+from http.client import HTTPException
+from typing import List, Tuple
 from pydwanimes.domain import Site
 from urllib import parse
 import requests
@@ -10,7 +12,7 @@ class AnimeFenix(Site):
     base_url = "https://www.animefenix.com"
 
     dictionary = {
-        "yourupload": "YourUpload",
+        "your_upload": "YourUpload",
         "fireload": "Fireload",
         "fembed": "Fembed"
     }
@@ -21,6 +23,7 @@ class AnimeFenix(Site):
 
         Only supports : 
             -   YourUpload
+            -   Fireload
         """
         soup = BeautifulSoup(html, "lxml")
         tab_id = soup.find("div", {
@@ -61,15 +64,23 @@ class AnimeFenix(Site):
 
         Parameters
         ----------
-        anime_slug  (int)   example: overlord
+        anime_slug  (str)   example: overlord
         chapter     (int)   example: 1
         """
 
         url = self.base_url + f"/ver/{anime_slug}-{chapter}"
-        req = requests.get(url)
-        html = req.text
+        res = requests.get(url)
+        html = res.text
 
-        tab_id = self.get_tab_id(html, self.dictionary[self.player_name])
+        # * Get player by get_multimedia_players method
+        players = self.get_multimedia_players(anime_slug, chapter)
+        player_name = players[0]
+        player = self.import_player(player_name)
+
+        self.player = player
+        self.player_name = player_name
+
+        tab_id = self.get_tab_id(html, self.dictionary[player_name])
         tab_url = self.get_tab_url(html, tab_id)
 
         return tab_url
@@ -79,9 +90,51 @@ class AnimeFenix(Site):
         qs = dict(parse.parse_qs(parsed_url.query))
         return qs["code"][0]
 
-    def get_multimedia_url(self, slug, chapter) -> str:
+    def search(self, slug: str) -> str:
+        url = self.base_url + f"/animes?q={slug}"
+        res = requests.get(url)
+        html = res.text
+        soup = BeautifulSoup(html, "lxml")
+        articles = soup.find_all("article", {
+            "class": "serie-card"
+        })
+
+        anime_url: str = articles[0].find("figure").find("a")["href"]
+        formatted_url = anime_url.replace(self.base_url + "/", "")
+
+        return formatted_url
+
+    def get_multimedia_players(self, slug: str, chapter: int) -> List[str]:
+        url = self.base_url + f"/ver/{slug}-{chapter}"
+        res = requests.get(url)
+        html = res.text
+
+        if res.status_code >= 400:
+            raise HTTPException(res.text)
+
+        soup = BeautifulSoup(html, "lxml")
+        dictionary = {
+            "Fembed": "fembed",
+            "YourUpload": "your_upload",
+            "Fireload": "fireload"
+        }
+
+        tabs = soup.find("div", {
+            "class": "tabs"
+        }).find("ul").find_all("a")
+
+        players = []
+        for tab in tabs:
+            p = dictionary.get(tab["title"], None)
+            if not p:
+                continue
+            players.append(p)
+
+        return players
+
+    def get_multimedia_url(self, slug, chapter) -> Tuple[str, str]:
         embed = self.get_embed_url(slug, chapter)
         print(f"EMBED URL -> {embed}")
         url = self.get_code_of_embed(embed)
-        print(f"{self.player_name} VIDEO ID {url}")
-        return url
+        print(f"{self.player.__class__.__name__.upper()} VIDEO ID {url}")
+        return (url, self.player_name)

@@ -37,15 +37,11 @@ def main():
         raise KeyError(player)
 
     ld = TqdmLoading()
-    p: Player
-    if player == "fireload":
-        p = fireload.Fireload(d, loading=ld)
-    elif player == "fembed":
-        p = Fembed(d, loading=ld)
-    else:
-        p = your_upload.YourUpload(d, loading=ld)
 
-    s = anime_fenix.AnimeFenix(p)
+    s = anime_fenix.AnimeFenix({
+        "directory": d,
+        "loading": ld
+    })
     s.download_multimedia(anime_slug, chapter)
 
 

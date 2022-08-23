@@ -5,7 +5,7 @@ with open("README.md") as f:
 
 setup(
     name="dwanimes",
-    version="0.0.1",
+    version="0.1.0",
     entry_points={
         'console_scripts': [
             "dw-animes=pydwanimes.cli:main"
