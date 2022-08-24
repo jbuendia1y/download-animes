@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from http.client import HTTPException
 import os
 from requests import Response
 from pathlib import Path
@@ -32,6 +33,10 @@ class Player(ABC):
         """ Process and save video """
         if not chunk_size:
             chunk_size = 1024*1024
+
+        if res.status_code >= 400:
+            error_args = {"content": res.text, "status_code": res.status_code}
+            raise HTTPException(error_args)
 
         with open(file_dir, "wb") as f:
             if self.loading:

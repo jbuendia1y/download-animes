@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Dict, List, Tuple
+from http.client import HTTPException
+from typing import Dict, Generator, List, Tuple
 
 from pydwanimes.application.helper import get_player_class
 from .player import Player
@@ -29,7 +30,7 @@ class Site(ABC):
         pass
 
     @abstractmethod
-    def get_multimedia_url(self, slug: str, chapter: int) -> Tuple[str, str]:
+    def get_multimedia_url(self, slug: str, chapter: int) -> Generator[Tuple[str, str], None, None]:
         """ Return a tuple of multimedia_url and player_name """
         pass
 
@@ -38,7 +39,13 @@ class Site(ABC):
         print("Searching anime ... ")
         anime_slug = self.search(slug)
         print(f"{anime_slug} -- Anime found !")
-        (url, player_name) = self.get_multimedia_url(anime_slug, chapter)
 
-        player = self.import_player(player_name)
-        player.download(url, f"cap-{chapter}")
+        for (url, player_name) in self.get_multimedia_url(anime_slug, chapter):
+            for _ in range(3):
+                try:
+                    player = self.import_player(player_name)
+                    player.download(url, f"cap-{chapter}")
+                    return
+                except HTTPException as e:
+                    print(e.args)
+                    continue
