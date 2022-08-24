@@ -18,6 +18,15 @@ class Fembed(Player):
         url = self.base_url + "/api/source/" + video_id
         res = requests.post(url, headers=self.get_headers())
         body = res.json()
+        success = body["success"]
+
+        if not success:
+            raise HTTPException({
+                "code": res.status_code,
+                "success": success,
+                "message": body["data"]
+            })
+
         files = body["data"]
 
         for f in files:

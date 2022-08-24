@@ -18,6 +18,12 @@ class YourUpload(Player):
     def get_watch_page(self, multimedia_id: str) -> str:
         url = self.watch_url + f"/{multimedia_id}"
         res = requests.get(url)
+
+        if res.status_code == 404:
+            raise HTTPException({
+                "code": res.status_code,
+                "message": "Cannot found video"
+            })
         html = res.text
 
         soup = BeautifulSoup(html, "lxml")
@@ -32,6 +38,13 @@ class YourUpload(Player):
 
         print("Getting download page")
         res = requests.get(url)
+
+        if res.status_code == 404:
+            raise HTTPException({
+                "code": res.status_code,
+                "message": "Cannot found video"
+            })
+
         html = res.text
         soup = BeautifulSoup(html, "lxml")
         dw_url = soup.find("a", {

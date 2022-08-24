@@ -10,6 +10,7 @@ SITES = {
 PLAYERS = {
     "fireload": "Fireload",
     "your_upload": "YourUpload",
+    "fembed": "Fembed"
 }
 
 
