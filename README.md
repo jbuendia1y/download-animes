@@ -1,3 +1,5 @@
+![PyPI](https://img.shields.io/pypi/v/dwanimes?color=blue&label=Version&logo=python&style=for-the-badge)
+
 # Download animes
 
 Download any anime from the web with only one command in your PC.

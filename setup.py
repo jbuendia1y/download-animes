@@ -1,11 +1,12 @@
 from setuptools import setup, find_packages
 
+
 with open("README.md") as f:
     long_description = f.read()
 
 setup(
     name="dwanimes",
-    version="0.1.1",
+    version="0.1.2",
     entry_points={
         'console_scripts': [
             "dw-animes=pydwanimes.cli:main"
