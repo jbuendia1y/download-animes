@@ -4,18 +4,21 @@ from pathlib import Path
 
 import pydwanimes.application.sites.anime_fenix as anime_fenix
 from pydwanimes.application.loading.tqdm_loading import TqdmLoading
+from pydwanimes.application.config import config
 
 
 def main():
     parser = ArgumentParser(description="Anime downloader",
-                            formatter_class=argparse.RawTextHelpFormatter)
+                            formatter_class=argparse.HelpFormatter)
+    parser.add_argument("--version", dest="version", default=False,
+                        type=bool, help="Get version of application")
     parser.add_argument("-n", "--name", dest="name",
                         help="Anime name", required=True)
     parser.add_argument("-c", "--chapter", dest="chapter",
                         type=int, help="Chapter number", required=True)
-    parser.add_argument("-d", "--directory",
-                        dest="directory", default="static/animes", help="Folder to save animes")
-
+    parser.add_argument("--directory", dest="directory",
+                        default=config.get("directoy"),
+                        help="Directory to save animes")
     args = parser.parse_args()
 
     anime_slug = args.name
