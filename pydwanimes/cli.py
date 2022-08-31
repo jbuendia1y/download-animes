@@ -10,14 +10,13 @@ from pydwanimes.application.config import config
 def main():
     parser = ArgumentParser(description="Anime downloader",
                             formatter_class=argparse.HelpFormatter)
-    parser.add_argument("--version", dest="version", default=False,
-                        type=bool, help="Get version of application")
     parser.add_argument("-n", "--name", dest="name",
                         help="Anime name", required=True)
     parser.add_argument("-c", "--chapter", dest="chapter",
                         type=int, help="Chapter number", required=True)
     parser.add_argument("--directory", dest="directory",
-                        default=config.get("directoy"),
+                        type=str,
+                        default=config.get("directory"),
                         help="Directory to save animes")
     args = parser.parse_args()
 
