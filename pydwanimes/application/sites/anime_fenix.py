@@ -98,6 +98,8 @@ class AnimeFenix(Site):
             "class": "serie-card"
         })
 
+        articles.reverse()
+
         anime_url: str = articles[0].find("figure").find("a")["href"]
         formatted_url = anime_url.replace(self.base_url + "/", "")
 
