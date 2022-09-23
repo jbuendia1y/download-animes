@@ -11,7 +11,8 @@ class Fembed(Player):
 
     def get_headers(self):
         return {
-            "Referer": self.base_url + "/"
+            "Referer": self.base_url + "/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 6.0; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0",
         }
 
     def get_file_source(self, video_id: str):
@@ -28,11 +29,12 @@ class Fembed(Player):
             })
 
         files = body["data"]
-
         for f in files:
             if not f["label"] == "720p":
                 continue
             return f
+
+        return files[0]
 
     def download(self, video_id: str, filename: str) -> None:
         f = self.get_file_source(video_id)

@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-VERSION = "0.1.6"
+VERSION = "0.1.7"
 
 with open("README.md") as f:
     long_description = f.read()
@@ -20,5 +20,5 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/jbuendia1y/download-animes",
-    keywords=["download", "anime"]
+    keywords=["download", "anime"],
 )
