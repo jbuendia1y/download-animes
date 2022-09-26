@@ -4,6 +4,10 @@ from pydwanimes.domain import Player
 
 
 class Fireload(Player):
+    headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 6.0; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0"
+            }
+
     def process_url(self, url: str) -> str:
         url.replace("%2F", "/")
         url.replace("%3F", "?")
@@ -15,7 +19,7 @@ class Fireload(Player):
         video_dir = self.compose_video_dir(filename)
         url = self.process_url(video_id)
 
-        res = requests.get(url, stream=True)
+        res = requests.get(url, stream=True,headers=self.headers)
         print(f"REQUEST VIDEO STATUS -> {res.status_code}")
         if res.status_code == 404:
             raise HTTPException({

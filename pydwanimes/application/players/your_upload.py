@@ -7,6 +7,10 @@ from bs4 import BeautifulSoup
 class YourUpload(Player):
     base_url = "https://www.yourupload.com"
 
+    headers = {
+'User-Agent': 'Mozilla/5.0 (Windows NT 6.0; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0'
+            }
+
     @property
     def embed_url(self):
         return f"{self.base_url}/embed"
@@ -17,7 +21,7 @@ class YourUpload(Player):
 
     def get_watch_page(self, multimedia_id: str) -> str:
         url = self.watch_url + f"/{multimedia_id}"
-        res = requests.get(url)
+        res = requests.get(url, headers=self.headers)
 
         if res.status_code == 404:
             raise HTTPException({
@@ -27,7 +31,7 @@ class YourUpload(Player):
         html = res.text
 
         soup = BeautifulSoup(html, "lxml")
-        dw_url = soup.find("a", {
+        dw_url:str = soup.find("a", {
             "class": "btn btn-success"
         })["href"]
 
@@ -37,7 +41,7 @@ class YourUpload(Player):
         url = self.get_watch_page(multimedia_id)
 
         print("Getting download page")
-        res = requests.get(url)
+        res = requests.get(url,headers=self.headers)
 
         if res.status_code == 404:
             raise HTTPException({
@@ -47,7 +51,7 @@ class YourUpload(Player):
 
         html = res.text
         soup = BeautifulSoup(html, "lxml")
-        dw_url = soup.find("a", {
+        dw_url:str = soup.find("a", {
             "class": "btn btn-success"
         })["data-url"]
         print("Download url getted !!")
@@ -62,7 +66,8 @@ class YourUpload(Player):
         print("Downloading video ...")
         print(f"Download video url -> {url}")
         res = requests.get(url, stream=True, headers={
-            "Referer": "https://www.yourupload.com/"
+            **self.headers,
+            "Referer": "https://www.yourupload.com/",
         })
 
         if res.status_code == 404:

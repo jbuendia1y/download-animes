@@ -16,7 +16,7 @@ pip install dwanimes
 
 ```bash
 dw-animes --help
-dw-animes --name spy-x-family --chapter 1
+dw-animes dw spy-x-family 1
 ```
 
 ## To use library
